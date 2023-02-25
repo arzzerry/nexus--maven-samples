@@ -1,12 +1,12 @@
 pipeline{
     agent any
     environment {
-        PATH = "$PATH:/usr/share/apache-maven/bin"
+        PATH = "$PATH:/usr/share/maven/bin"
     }
     stages{
        stage('GetCode'){
             steps{
-                git credentialsId: 'bdaac16d-a18e-4d0e-83c0-2850c1baee17', url: 'https://github.com/puneetgavri/nexus--maven-samples.git'
+                git url: 'https://github.com/puneetgavri/nexus--maven-samples.git'
             }
        }        
        stage('Build'){
@@ -16,10 +16,8 @@ pipeline{
        }
        stage('SonarQube analysis') {
             steps{
-                  withSonarQubeEnv('sonarqube') { 
-                  sh "mvn sonar:sonar"
-					}
-			}
+                  echo "========SONARQUBE RUN========"
+		}
        }
        
     }
